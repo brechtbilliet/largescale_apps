@@ -7,39 +7,28 @@ import { Task } from '../types/task.type';
     template: `
         <h1>Tasks</h1>
         <button (click)="fetchTasks()">Fetch tasks</button>
-        <task-list [tasks]="tasks" (add)="addTask($event)" (remove)="removeTask($event)" (update)="updateTask($event)"></task-list>
+        <task-list [tasks]="tasks$|async" (add)="addTask($event)" (remove)="removeTask($event)" (update)="updateTask($event)"></task-list>
 `,
 })
 export class TasksContainer {
-    tasks: Array<Task> = [];
-
-    fakeId = 1000;
+    tasks$ = this.sb.tasks$;
 
     constructor(private sb: TasksSandbox) {
     }
 
     fetchTasks(): void {
-        this.sb.fetchTasks().subscribe((res: Array<Task>) => {
-            this.tasks = res;
-        })
+        this.sb.fetchTasks();
     }
 
-    removeTask(id: string): void {
-        // normally go to service
-        // this is mock code
-        this.tasks = this.tasks.filter(item => item.id !== id);
+    removeTask(task: Task): void {
+        this.sb.removeTask(task);
     }
 
     updateTask(updatedTask: Task): void {
-        // normally go to service
-        // this is mock code
-        this.tasks = this.tasks.map(task => task.id === updatedTask.id ? updatedTask : task)
+        this.sb.updateTask(updatedTask);
     }
 
     addTask(label: string): void {
-        // normally go to service
-        // this is mock code
-        this.fakeId++;
-        this.tasks = [...this.tasks, {label, id: this.fakeId.toString()}]
+        this.sb.addTask(label);
     }
 }

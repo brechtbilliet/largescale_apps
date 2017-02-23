@@ -7,11 +7,15 @@ import { AppComponent } from './app.component';
 
 import {TasksModule} from 'tasks/src';
 import { AppSandbox } from './app.sandbox';
+import { rootReducer } from '../root.reducer';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    StoreModule.provideStore(rootReducer), StoreDevtoolsModule.instrumentOnlyWithExtension(),
     BrowserModule,
     FormsModule,
     HttpModule,

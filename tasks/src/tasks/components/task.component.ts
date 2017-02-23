@@ -14,13 +14,13 @@ import { Task } from '../types/task.type';
                 <button (click)="save()">save</button>
                 <button (click)="toggleEdit()">cancel</button>
             </span>
-            <button (click)="remove.emit(task?.id)">Remove</button>
+            <button (click)="remove.emit(task)">Remove</button>
         </p>
 `
 })
 export class TaskComponent implements OnChanges {
     @Input() task: Task;
-    @Output() remove = new EventEmitter<string>();
+    @Output() remove = new EventEmitter<Task>();
     @Output() update = new EventEmitter<Task>();
 
     edit = false;

@@ -16,7 +16,7 @@ import { Task } from '../types/task.type';
 })
 export class TaskListComponent {
     @Input() tasks: Array<Task>;
-    @Output() remove = new EventEmitter<string>();
+    @Output() remove = new EventEmitter<Task>();
     @Output() update = new EventEmitter<Task>();
     @Output() add = new EventEmitter<string>();
 
